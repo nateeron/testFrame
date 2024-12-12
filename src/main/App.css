@@ -1,0 +1,57 @@
+#root {
+
+}
+a{
+  color: #e6ecf5 !important;
+  text-decoration: none !important;
+}
+/* App.css */
+
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full height of the screen */
+}
+
+.top-bar {
+  background-color: #272b35;
+  color: white;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0; /* Prevent it from shrinking */
+  border: 2px solid #5b5d5f;;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+}
+
+.left-bar,
+.right-bar {
+  background-color: #272b35;
+  width: 50px; /* Fixed width for left and right bars */
+  flex-shrink: 0; /* Prevent shrinking */
+  border: 2px solid #5b5d5f;;
+}
+
+.main-section {
+  background-color: #272b35;
+  flex: 1; /* Takes up remaining space */
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+}
+
+.main-section > * {
+  width: 100%; /* Ensures the Main_Section component stretches */
+}

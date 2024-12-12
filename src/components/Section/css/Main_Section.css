@@ -1,0 +1,49 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.top-section {
+  display: flex;
+  flex-direction: row;
+  background-color: #2c2929;
+  flex: 0 1 auto;
+  overflow: auto;
+}
+
+.left-section {
+  background-color: #2c2929;
+  flex: 1;
+  
+}
+.right-section {
+  background-color: #2c2929;
+  overflow: auto;
+ max-width: 450px;
+}
+
+.divider {
+  background-color: #636364;
+  cursor: ns-resize;
+  user-select: none;
+  margin: 0;
+}
+
+.horizontal {
+  height: 5px;
+  cursor: ns-resize;
+}
+
+.vertical {
+  width: 5px;
+  cursor: ew-resize;
+  margin-left: 10px;
+}
+
+.bottom-section {
+  background-color: #2c2929;
+  flex: 1;
+  overflow: auto;
+}
