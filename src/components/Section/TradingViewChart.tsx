@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { createChart, IChartApi } from 'lightweight-charts';
 import { useSelector, useDispatch } from 'react-redux';
-import { setValueTV } from '../../manage_Redux/store';
 const DynamicHeightChart = () => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
@@ -14,6 +13,8 @@ const DynamicHeightChart = () => {
 
     // Initialize chart
     const chartOptions = {
+      width: chartContainerRef.current.clientWidth,
+      height: chartHeight,
       layout: {
         textColor: '#E4E4E4',
         background: { type: 'solid', color: '#202020' },
@@ -43,11 +44,7 @@ const DynamicHeightChart = () => {
       },
     };
 
-    const chart = createChart(chartContainerRef.current, {
-      ...chartOptions,
-      width: chartContainerRef.current.clientWidth,
-      height: chartHeight,
-    });
+    const chart = createChart(chartContainerRef.current,chartOptions);
     chartRef.current = chart;
 
     // Clean up on unmount
@@ -63,18 +60,18 @@ const DynamicHeightChart = () => {
     }
   }, [chartHeight]);
 
-  const increaseHeight = () => setChartHeight((getsto) => getsto + 100);
-  const decreaseHeight = () => setChartHeight((getsto) => (getsto > 200 ? getsto - 100 : getsto));
+  //const increaseHeight = () => setChartHeight((getsto) => getsto + 100);
+  //const decreaseHeight = () => setChartHeight((getsto) => (getsto > 200 ? getsto - 100 : getsto));
 
   return (
     <div>
       <div ref={chartContainerRef} style={{ width: '100%', height: `${chartHeight}px` }} />
-      <div style={{ marginTop: '10px' }}>
-        <button onClick={increaseHeight}>Increase Height</button>
-        <button onClick={decreaseHeight} style={{ marginLeft: '10px' }}>
-          Decrease Height
-        </button>
-      </div>
+       {/* <div style={{ marginTop: '10px' }}>
+         <button onClick={increaseHeight}>Increase Height</button>
+         <button onClick={decreaseHeight} style={{ marginLeft: '10px' }}>
+           Decrease Height
+         </button>
+       </div> */}
     </div>
   );
 };

@@ -1,15 +1,28 @@
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { createLogger } from 'redux-logger';
-import rootReducer from './rootReducer'; // Root reducer
+import rootReducer from './rootReducer'; // Your root reducer
+import { thunk } from 'redux-thunk'; // Correct way to import redux-thunk
+import { createLogger } from 'redux-logger'; // Import logger
 
-// Logger middleware
+// Create a logger middleware
 const logger = createLogger();
 
-// Combine middlewares
+// Create a middleware array with thunk and logger
 const middlewares = [thunk, logger];
 
-// Create store with root reducer and middlewares
+// Create the Redux store
 const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
 export default store;
+
+
+
+
+
+
+
+
+
+
+
+
+
