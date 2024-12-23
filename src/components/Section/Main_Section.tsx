@@ -5,11 +5,12 @@ import Left_Section from "./Left_Section.jsx";
 import Right_Section from "./Right_Section.jsx";
 import Buttom_Section from "./Buttom_Section.jsx";
 
-
+import { useSelector, useDispatch } from 'react-redux';
 
 
 
 const Main_Section: React.FC = () => {
+    const dispatch = useDispatch();
     // Initial sizes for top/bottom and left/right sections
     const [topHeight, setTopHeight] = useState<number>(700);
     const [leftWidth, setLeftWidth] = useState<number>(250);
@@ -34,6 +35,10 @@ const Main_Section: React.FC = () => {
             if (newTopHeight > 50 && newTopHeight < window.innerHeight - 50) {
                 setTopHeight(newTopHeight);
                 console.log(newTopHeight)
+                dispatch({
+                    type: 'MANAGE_CHART',
+                    payload: { height:newTopHeight, width: null },
+                  });
             }
         }
         if (isDraggingVertical && dividerRefVertical.current) {

@@ -7,7 +7,7 @@ const DynamicHeightChart = () => {
   const [chartHeight, setChartHeight] = useState<number>(400); // Default height
   const dispatch = useDispatch();
 //   const chartHeightST = useSelector((state: any) => state.SetWindowsTV.value);    
-
+const user = useSelector((state: RootState) => state.user);
   useEffect(() => {
     if (!chartContainerRef.current) return;
 
