@@ -1,4 +1,4 @@
-import React, { useState, useRef, MouseEvent } from "react";
+import React, { useState, useRef, MouseEvent, useEffect } from "react";
 import "./css/Main_Section.css";
 
 import Left_Section from "./Left_Section.jsx";
@@ -8,9 +8,10 @@ import Buttom_Section from "./Buttom_Section.jsx";
 import { useSelector, useDispatch } from 'react-redux';
 
 
-
 const Main_Section: React.FC = () => {
     const dispatch = useDispatch();
+   
+    
     // Initial sizes for top/bottom and left/right sections
     const [topHeight, setTopHeight] = useState<number>(700);
     const [leftWidth, setLeftWidth] = useState<number>(250);
@@ -31,19 +32,19 @@ const Main_Section: React.FC = () => {
     // Horizontal divider: Mouse move event
     const handleMouseMoveHorizontal = (e: MouseEvent<HTMLDivElement>) => {
         if (isDraggingHorizontal && dividerRefHorizontal.current) {
-            const newTopHeight = e.clientY;
-            if (newTopHeight > 50 && newTopHeight < window.innerHeight - 50) {
+            const newTopHeight = e.clientY-53;
+            if (newTopHeight > 50 && newTopHeight < window.innerHeight ) {
                 setTopHeight(newTopHeight);
                 console.log(newTopHeight)
                 dispatch({
                     type: 'MANAGE_CHART',
-                    payload: { height:newTopHeight, width: null },
+                    payload: { height:newTopHeight },
                   });
             }
         }
         if (isDraggingVertical && dividerRefVertical.current) {
-            const newLeftWidth = window.innerWidth - e.clientX;
-            if (newLeftWidth > 100 && newLeftWidth < window.innerWidth - 100) {
+            const newLeftWidth = window.innerWidth - e.clientX -68;
+            if (newLeftWidth > 100 && newLeftWidth < window.innerWidth ) {
                 setLeftWidth(newLeftWidth);
             }
         }

@@ -6,7 +6,6 @@ import TradingViewChart from './TradingViewChart'
 
 const Left_Section: React.FC = () => {
   return<> <h1>Left_Section</h1>
-  
   <TradingViewChart />
   </>;
 };
