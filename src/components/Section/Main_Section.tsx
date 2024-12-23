@@ -4,12 +4,29 @@ import "./css/Main_Section.css";
 import Left_Section from "./Left_Section.jsx";
 import Right_Section from "./Right_Section.jsx";
 import Buttom_Section from "./Buttom_Section.jsx";
+
+
+
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../manage_Redux/store.tsx';
+import { increment, decrement, setValue } from '../../manage_Redux/store.tsx';
+import { setheight, setwidth, setValueTV } from '../../manage_Redux/store.tsx';
+
+
+
+
+
+
+
+
+
 const Main_Section: React.FC = () => {
     // Initial sizes for top/bottom and left/right sections
     const [topHeight, setTopHeight] = useState<number>(700);
     const [leftWidth, setLeftWidth] = useState<number>(250);
     const [isDraggingVertical, setIsDraggingVertical] = useState<boolean>(false);
     const [isDraggingHorizontal, setIsDraggingHorizontal] = useState<boolean>(false);
+    const dispatch = useDispatch<AppDispatch>();
 
     // Refs for the dividers
     const dividerRefHorizontal = useRef<HTMLDivElement | null>(null);
@@ -28,6 +45,9 @@ const Main_Section: React.FC = () => {
             const newTopHeight = e.clientY;
             if (newTopHeight > 50 && newTopHeight < window.innerHeight - 50) {
                 setTopHeight(newTopHeight);
+                console.log(newTopHeight)
+                dispatch(setheight()); // Redux action to set height
+                dispatch(setValueTV(newTopHeight)); // Redux action to update a specific value
             }
         }
         if (isDraggingVertical && dividerRefVertical.current) {
