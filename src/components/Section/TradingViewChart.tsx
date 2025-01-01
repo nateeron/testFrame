@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { createChart, IChartApi } from 'lightweight-charts';
+import { createChart, IChartApi ,ISeriesApi } from 'lightweight-charts';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../manage_Redux/rootReducer';
 
@@ -8,11 +8,17 @@ const DynamicHeightChart = () => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const overlayCanvasRef = useRef<HTMLCanvasElement>(null);
+  const seriesRef = useRef<ISeriesApi<'Candlestick'> | null>(null);
   const dispatch = useDispatch();
   const chartHeight = useSelector((state: RootState) => ((state.chart.height) != null ? (state.chart.height) : 700) - 50);
   const clientWidth = useSelector((state: RootState) => ((state.chart.width) != null ? (state.chart.width) : 800) - 50);
+
+  const symbo = 'XRPUSDT'
+  const TimeFream = '1m'
+
   //const [chartHeight, setChartHeight] = useState<number>(chart_height != null ? chart_height: 400); // Default height
   useEffect(() => {
+    console.log("useEffect Main ***********************************************")
     if (!chartContainerRef.current) return;
     // Initialize chart
     const chartOptions = {
@@ -44,9 +50,37 @@ const DynamicHeightChart = () => {
         priceFormatter: (p: number) => p.toFixed(4),
       },
     };
+    
+    const sampleData = [
+      { time: '2024-12-01', open: 1.12, high: 1.25, low: 1.1, close: 1.2 },
+      { time: '2024-12-02', open: 1.2, high: 1.3, low: 1.15, close: 1.25 },
+      { time: '2024-12-03', open: 1.25, high: 1.35, low: 1.2, close: 1.3 },
+      { time: '2024-12-04', open: 1.3, high: 1.4, low: 1.25, close: 1.35 },
+    ];
+
 
     const chart = createChart(chartContainerRef.current, chartOptions);
     chartRef.current = chart;
+
+    const series = chart.addCandlestickSeries({
+      borderDownColor: '#f44336',
+      borderUpColor: '#4caf50',
+      upColor: '#26a69a',
+      downColor: '#ef5350',
+      borderVisible: false,
+      wickUpColor: '#26a69a',
+      wickDownColor: '#ef5350',
+    });
+
+    seriesRef.current = series;
+    //-------------------------------------------------------------------------------
+    // Load Data
+    //-------------------------------------------------------------------------------
+
+
+    // Set initial data
+    series.setData(sampleData);
+
     // Handle window resize
     const resizeObserver = new ResizeObserver(() => {
       chart.applyOptions({ width: chartContainerRef.current?.clientWidth || 0 });
@@ -73,8 +107,14 @@ const DynamicHeightChart = () => {
       window.removeEventListener("resize", handleResize);
       chart.remove();
     };
+
+
   }, []);
 
+
+  //-------------------------------------------------------------------------------
+  // Update size
+  //-------------------------------------------------------------------------------
   useEffect(() => {
     // Update chart height when `chartHeight` changes
     if (chartRef.current && chartContainerRef.current) {
@@ -83,6 +123,8 @@ const DynamicHeightChart = () => {
 
   }, [chartHeight]);
 
+ 
+ 
 
   return (
     <div>
